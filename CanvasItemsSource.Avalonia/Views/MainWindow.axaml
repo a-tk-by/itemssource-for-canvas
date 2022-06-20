@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CanvasItemsSource.Avalonia.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CanvasItemsSource.Avalonia.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="{Binding WindowTitle}">
+
+  <Design.DataContext>
+    <vm:MainWindowViewModel/>
+  </Design.DataContext>
+
+  <ItemsControl Items="{Binding Items}">
+    <ItemsControl.ItemsPanel>
+      <ItemsPanelTemplate>
+        <Canvas  />
+      </ItemsPanelTemplate>
+    </ItemsControl.ItemsPanel>
+    <ItemsControl.Styles>
+      <Style Selector="ItemsControl ContentPresenter">
+        <Setter Property="Canvas.Left" Value="{Binding X}" />
+        <Setter Property="Canvas.Top" Value="{Binding Y}" />
+      </Style>
+    </ItemsControl.Styles>
+    <ItemsControl.DataTemplates>
+      <DataTemplate DataType="{x:Type vm:Item}">
+        <Button Width="{Binding Size}" Height="{Binding Size}" Content="{Binding Text}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                Command="{Binding Clicked}">
+          <Button.Background>
+            <SolidColorBrush Color="{Binding Color}" />
+          </Button.Background>
+        </Button>
+      </DataTemplate>
+    </ItemsControl.DataTemplates>
+  </ItemsControl>
+
+
+</Window>
